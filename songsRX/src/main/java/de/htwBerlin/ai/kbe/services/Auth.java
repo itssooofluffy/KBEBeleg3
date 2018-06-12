@@ -2,7 +2,7 @@ package de.htwBerlin.ai.kbe.services;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -15,9 +15,8 @@ public class Auth {
     // GET http://localhost:8080/SongsRX/rest/auth
     // Returns a token if user is inside contacts
     @GET
-    @Path("/{userId}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getAuth(@PathParam("userId") String userId) {
+    public Response getAuth(@QueryParam("userId") String userId) {
         String token = TokenCreator.getInstance().getToken();
         if (TokenCreator.getInstance().checkContact(userId)) {
             return Response.ok(token).build();

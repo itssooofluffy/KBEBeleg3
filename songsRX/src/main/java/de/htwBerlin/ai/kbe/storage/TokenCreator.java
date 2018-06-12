@@ -69,6 +69,7 @@ public class TokenCreator {
         String createdToken = Long.toString(longToken, 16);
         this.token = createdToken;
         tokenList.add("testToken");
+	tokenList.add(token);
         return createdToken;
     }
 
