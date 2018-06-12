@@ -7,7 +7,7 @@ package de.htwBerlin.ai.kbe.storage;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.htwBerlin.ai.kbe.Contact;
+import de.htwBerlin.ai.kbe.bean.Contact;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

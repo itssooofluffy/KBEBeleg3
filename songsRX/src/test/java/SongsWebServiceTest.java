@@ -7,7 +7,8 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.htwBerlin.ai.kbe.Song;
+import de.htwBerlin.ai.kbe.bean.Song;
+import de.htwBerlin.ai.kbe.services.Auth;
 import de.htwBerlin.ai.kbe.services.Songs;
 
 public class SongsWebServiceTest extends JerseyTest {
@@ -16,8 +17,8 @@ public class SongsWebServiceTest extends JerseyTest {
 	protected Application configure() {
 		return new ResourceConfig(Songs.class);
 	}
-		
-	@Test
+	
+        @Test
 	public void updateSongWithNonExistingIDShouldReturn404 () {
 		Song mySong = new Song();
 		mySong.setId(14);

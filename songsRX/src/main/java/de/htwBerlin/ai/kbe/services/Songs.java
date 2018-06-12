@@ -1,8 +1,5 @@
 package de.htwBerlin.ai.kbe.services;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import de.htwBerlin.ai.kbe.Contact;
 import java.util.Collection;
 
 import javax.ws.rs.Consumes;
@@ -16,14 +13,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import de.htwBerlin.ai.kbe.Song;
+import de.htwBerlin.ai.kbe.bean.Song;
 import de.htwBerlin.ai.kbe.storage.SongStorage;
 import de.htwBerlin.ai.kbe.storage.TokenCreator;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 import javax.ws.rs.HeaderParam;
@@ -38,7 +31,7 @@ public class Songs {
     public Response getAllSongs(@HeaderParam("authorization") String authString) throws IOException {
         Collection<Song> songs;
         if (!isUserAuth(authString)) {
-            return Response.status(Response.Status.FORBIDDEN).entity("User is not authenticated!").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authenticated!").build();
         }
         System.out.println("Returns all Songs.");
         songs = SongStorage.getInstance().getAllSongs();
@@ -55,7 +48,7 @@ public class Songs {
             @HeaderParam("authorization") String authString) throws IOException {
         Song song = SongStorage.getInstance().getSong(id);
         if (!isUserAuth(authString)) {
-            return Response.status(Response.Status.FORBIDDEN).entity("User is not authenticated!").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authenticated!").build();
         }
         if (song != null) {
             System.out.println("Returning Song with ID " + id);
@@ -78,7 +71,7 @@ public class Songs {
     public Response createSong(@HeaderParam("authorization") String authString,
             Song song) throws IOException {
         if (!isUserAuth(authString)) {
-            return Response.status(Response.Status.FORBIDDEN).entity("User is not authenticated!").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authenticated!").build();
         }
         System.out.println("createContact: Received song: " + song.toString());
         return Response.status(Response.Status.CREATED).entity(SongStorage.getInstance().addSong(song)).build();
@@ -96,7 +89,7 @@ public class Songs {
             @HeaderParam("authorization") String authString, Song song) throws IOException {
         boolean update = SongStorage.getInstance().updateSong(song);
         if (!isUserAuth(authString)) {
-            return Response.status(Response.Status.FORBIDDEN).entity("User is not authenticated!").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authenticated!").build();
         }
         if (!Objects.equals(song.getId(), id)) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -119,7 +112,7 @@ public class Songs {
             @HeaderParam("authorization") String authString) throws IOException {
         Song song = SongStorage.getInstance().deleteSong(id);
         if (!isUserAuth(authString)) {
-            return Response.status(Response.Status.FORBIDDEN).entity("User is not authenticated!").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authenticated!").build();
         }
         if (song != null) {
             return Response.status(Response.Status.NO_CONTENT).entity("Song was deleted " + id).build();

@@ -14,7 +14,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.htwBerlin.ai.kbe.Song;
+import de.htwBerlin.ai.kbe.bean.Song;
 
 public class SongStorage {
 
