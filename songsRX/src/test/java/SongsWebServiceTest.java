@@ -25,7 +25,7 @@ public class SongsWebServiceTest extends JerseyTest {
 		mySong.setTitle("TestTitle");
 		mySong.setAlbum("TestAlbum");
 		mySong.setReleased(2016);
-		Response response = target("/songs/14").request().put(Entity.json(mySong));
+		Response response = target("/songs/14").request().header("authorization", "testToken").put(Entity.json(mySong));
 		System.out.println("Update with no provided ID: " + response.getStatus());
 		Assert.assertEquals(404, response.getStatus());
 	}
@@ -38,7 +38,7 @@ public class SongsWebServiceTest extends JerseyTest {
 		mySong.setTitle("TestTitle");
 		mySong.setAlbum("TestAlbum");
 		mySong.setReleased(2016);
-		Response response = target("/songs/10").request().put(Entity.xml(mySong));
+		Response response = target("/songs/10").request().header("authorization", "testToken").put(Entity.xml(mySong));
 		System.out.println("Update with matching ID: " + response.getStatus());
 		Assert.assertEquals(204, response.getStatus());
 	}
@@ -51,7 +51,7 @@ public class SongsWebServiceTest extends JerseyTest {
 		mySong.setTitle("TestTitle");
 		mySong.setAlbum("TestAlbum");
 		mySong.setReleased(2016);
-		Response response = target("/songs/14").request().put(Entity.xml(mySong));
+		Response response = target("/songs/14").request().header("authorization", "testToken").put(Entity.xml(mySong));
 		System.out.println("Update with non matching ID: " + response.getStatus());
 		Assert.assertEquals(400, response.getStatus());
 	}	
